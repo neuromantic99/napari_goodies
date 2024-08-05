@@ -1,3 +1,4 @@
+import datetime
 from os import mkdir
 from typing import Annotated, List, Tuple
 from matplotlib import pyplot as plt
@@ -127,8 +128,6 @@ def get_cov_matrix(img: np.ndarray, spacing: Annotated[List[float], 3]) -> np.nd
 
 
 def compute_fwhm(popt: np.ndarray) -> Tuple[FWHM, PrincipleAxisGaussian, np.ndarray]:
-    height = popt[0]
-    background = popt[1]
     cxx = popt[5]
     cxy = popt[6]
     cxz = popt[7]
@@ -400,4 +399,5 @@ def plot_psf(
     if not (HERE / "figures").exists():
         mkdir(HERE / "figures")
 
-    plt.savefig(HERE / "figures" / "2024-05-31_PsfSize.pdf", dpi=300)
+    date = datetime.datetime.now().isoformat().split("T")[0]
+    plt.savefig(HERE / "figures" / f"{date}_PSF.pdf", dpi=300)
